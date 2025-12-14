@@ -78,7 +78,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://54.215.246.62",
     "http://thankyounotes.today",
     "http://www.thankyounotes.today",
-    "http://localhost:8000"
+    "https://main.dld367td3v4c7.amplifyapp.com"
 ]
 
 CORS_ALLOW_CREDENTIALS = True # cookie settings
