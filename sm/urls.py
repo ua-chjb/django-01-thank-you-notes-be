@@ -1,5 +1,9 @@
 from django.urls import path
+from django.views.generic.base import RedirectView
+from django.contrib.staticfiles.storage import staticfiles_storage
 from . import views
+
+favicon_view = RedirectView.as_view(url=staticfiles_storage.url("favicon.ico"), permanent=True)
 
 urlpatterns = [
     # user management
@@ -32,5 +36,8 @@ urlpatterns = [
     # notifications
     path("notifications/", views.get_notifications, name="get_notifications"),
     path("notifications/<int:pk>/read/", views.mark_notification_read, name="mark_notification_read"),
-    path("notifications/<int:pk>/delete/", views.delete_notification, name="delete_notification")
+    path("notifications/<int:pk>/delete/", views.delete_notification, name="delete_notification"),
+
+    # favicon error
+    path("favicon/ico", favicon_view, name="favicon")
 ]
