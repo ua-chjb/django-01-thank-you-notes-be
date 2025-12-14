@@ -75,9 +75,10 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
-    "54.215.246.62",
-    "thankyounotes.today",
-    "www.thankyounotes.today"
+    "http://54.215.246.62",
+    "http://thankyounotes.today",
+    "http://www.thankyounotes.today",
+    "http://localhost:8000"
 ]
 
 CORS_ALLOW_CREDENTIALS = True # cookie settings
