@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "sm",
     "rest_framework",
-    "corsheaders"
+    "corsheaders",
+    "storages"
 ]
 
 REST_FRAMEWORK = {
@@ -205,8 +206,20 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # will need to change this in deployment to S3
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media" 
 
+AWS_ACCESS_KEY_ID = ssm.get_parameter(Name="S3_ACCESS_KEY", WithDecryption=True)["Parameter"]["Value"]
+AWS_SECRET_ACCESS_KEY = ssm.get_parameter(Name="S3_SECRET_KEY", WithDecryption=True)["Parameter"]["Value"]
 
+AWS_STORAGE_BUCKET_NAME = "django-01-tyn-s3"
+AWS_S3_REGION_NAME = "us-west-1"
+AWS_DEFAULT_ACL = "public-read"
+AWS_S3_FILE_OVERWRITE = False
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+MEDIA_LOCATION = "media"
+AWS_LOCATION = MEDIA_LOCATION
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/{MEDIA_LOCATION}/"
+
+# authentication model
 AUTH_USER_MODEL = "sm.CustomUser"
