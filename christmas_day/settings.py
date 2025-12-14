@@ -175,8 +175,14 @@ SIMPLE_JWT = {
 # cookie handling (even though JWT is used, this is for the admin portal)
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False # may need to change this in production
+CSRF_COOKIE_SECURE = False # may need to change this in production
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://54.215.246.62", 
+    "http://thankyounotes.today",
+    "http://www.thankyounotes.today"
+]
 
 
 
