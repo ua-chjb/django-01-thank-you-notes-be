@@ -26,8 +26,8 @@ ssm = boto3.client("ssm", region_name="us-west-1")
 
 SECRET_KEY = ssm.get_parameter(Name="/django-01-tyn/drf", WithDecryption=True)["Parameter"]["Value"]
 
-# set security to false
-DEBUG = False
+# set debug to false
+DEBUG = True
 
 # change allowed hosts to IP / domain
 ALLOWED_HOSTS = [
