@@ -7,7 +7,7 @@ favicon_view = RedirectView.as_view(url=staticfiles_storage.url("favicon.ico"), 
 
 urlpatterns = [
     # user management
-    path("", RedirectView.as_view(url="/register_user/", permanent=False)),
+    path("", views.register_user, name="home_login"),
     path("register_user/", views.register_user, name="register_user"),
     path("update_user/", views.update_user, name="update_user"),
     path("my_profile/", views.get_current_user, name="profile"),
