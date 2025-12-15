@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.utils import timezone
 from datetime import timedelta
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -19,6 +20,11 @@ from .serializers import (
 )
 from .models import Post, CustomUser, Follow, PostLike, Comment, CommentLike, Notification
 from .utils import send_sms_verification, create_notification
+
+# connect to react
+@ensure_csrf_cookie
+def react_app(request):
+    return render(request, "index.html")
 
 
 # verification data
