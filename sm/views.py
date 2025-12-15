@@ -21,12 +21,6 @@ from .serializers import (
 from .models import Post, CustomUser, Follow, PostLike, Comment, CommentLike, Notification
 from .utils import send_sms_verification, create_notification
 
-# connect to react
-@ensure_csrf_cookie
-def react_app(request):
-    return render(request, "index.html")
-
-
 # verification data
 @api_view(["POST"])
 def register_user(request):
