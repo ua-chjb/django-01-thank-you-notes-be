@@ -33,7 +33,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "54.215.246.62",
     "thankyounotes.today",
-    "www.thankyounotes.today"
+    "www.thankyounotes.today",
+    "api.thankyounotes.today"
 ]
 
 
