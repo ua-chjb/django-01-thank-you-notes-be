@@ -80,10 +80,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://54.215.246.62",
     "http://thankyounotes.today",
     "http://www.thankyounotes.today",
-    "http://api.thankyounotes.today"
+    "http://api.thankyounotes.today",
+
+    "https://thankyounotes.today",
+    "https://www.thankyounotes.today",
+    "https://api.thankyounotes.today"
 ]
 
-CORS_ALLOW_CREDENTIALS = True # cookie settings
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = [
     'DELETE',
