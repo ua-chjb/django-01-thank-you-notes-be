@@ -210,7 +210,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# will need to change this in deployment to S3
+
+# media files
+DATR_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 
 AWS_ACCESS_KEY_ID = ssm.get_parameter(Name="S3_ACCESS_KEY", WithDecryption=True)["Parameter"]["Value"]
 AWS_SECRET_ACCESS_KEY = ssm.get_parameter(Name="S3_SECRET_KEY", WithDecryption=True)["Parameter"]["Value"]
