@@ -21,6 +21,11 @@ from .serializers import (
 from .models import Post, CustomUser, Follow, PostLike, Comment, CommentLike, Notification
 from .utils import send_sms_verification, create_notification
 
+import logging
+logging.getLogger('botocore').setLevel(logging.DEBUG)
+logging.getLogger('boto3').setLevel(logging.DEBUG)
+logging.getLogger('s3transfer').setLevel(logging.DEBUG)
+
 # verification data
 @api_view(["POST"])
 def register_user(request):
