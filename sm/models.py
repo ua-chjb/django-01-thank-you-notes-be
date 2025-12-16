@@ -1,6 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
+
+def compress_image(image, max_size=(1920, 1080), quality=85):
+    img = Image.open(image)
+
+    if img.mode in ("RGBA", "P"):
+        img = img.convert("RGB")
+
+    if img.width > max_size[0] or img.height > max_size[1]:
+        img.thumbnail(max_size, Image.LANCZOS)
+    
+    buffer = BytesIO()
+    img.save(buffer, format="JPEG", quality=quality, optimize=True)
+    buffer.seek(0)
+
+    return InMemoryUploadedFile(
+        buffer, "ImageField",
+        f"{image.name.rsplit('.', 1)[0]}.jpg",
+        "image/jpg",
+        sys.getsizeof(buffer),
+        None
+    )
 
 class CustomUser(AbstractUser):
     bio = models.TextField(blank=True, null=True)
@@ -11,6 +36,19 @@ class CustomUser(AbstractUser):
     code_created_at = models.DateTimeField(blank=True, null=True)
 
     REQUIRED_FIELDS = ["first_name", "last_name"]
+
+    def save(self, *args, **kwargs):
+        if self.profile_picture:
+            if self.pk:
+                old_instance = CustomUser.objects.filter(pk=self.pk).first()
+                is_new_image = old_instance is None or old_instance.profile_picture != self.profile_picture
+            else:
+                is_new_image = True
+
+            if is_new_image:
+                self.profile_picture = compress_image(self.profile_picture, max_size=(800, 800))
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username
@@ -47,6 +85,20 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+    def save(self, *args, **kwargs):
+        if self.gift_image:
+            if self.pk:
+                old_instance = Post.objects.filter(pk=self.pk).first()
+                is_new_image = old_instance is None or old_instance.gift_image != self.gift_image
+            
+            else:
+                is_new_image = True
+
+            if is_new_image:
+                self.gift_image = compress_image(self.gift_image)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.what
