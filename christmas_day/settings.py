@@ -222,8 +222,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # media files
 
-DATR_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
-FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
+DATR_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024
+FILE_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024
 
 AWS_ACCESS_KEY_ID = ssm.get_parameter(Name="/django-01-tyn/s3-access-key", WithDecryption=True)["Parameter"]["Value"]
 AWS_SECRET_ACCESS_KEY = ssm.get_parameter(Name="/django-01-tyn/s3-secret-access-key", WithDecryption=True)["Parameter"]["Value"]
