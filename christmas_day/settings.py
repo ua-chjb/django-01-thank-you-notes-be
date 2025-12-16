@@ -145,6 +145,15 @@ DATABASES = {
     }
 }
 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
