@@ -163,17 +163,7 @@ def update_post(request, pk):
             ser.save() # <-- THE S3 UPLOAD HAPPENS HERE
             return Response(ser.data) # Only return 200 OK on successful save
             
-        except ClientError as e:
-            # Catches all AWS service errors (400, 403, etc.)
-            print(f"!!! S3 CLIENT ERROR: {e}", file=sys.stderr)
-            traceback.print_exc(file=sys.stderr)
-            return Response(
-                {"error": "S3 Upload Failed. Check Server Logs for Details."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-            
-        except Exception as e:
-            # Catches any other Python error during the save process
+        except:
             print(f"!!! GENERIC PYTHON ERROR DURING UPLOAD: {e}", file=sys.stderr)
             traceback.print_exc(file=sys.stderr)
             return Response(
