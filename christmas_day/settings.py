@@ -218,8 +218,13 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 AWS_ACCESS_KEY_ID = ssm.get_parameter(Name="/django-01-tyn/s3-access-key", WithDecryption=True)["Parameter"]["Value"]
 AWS_SECRET_ACCESS_KEY = ssm.get_parameter(Name="/django-01-tyn/s3-secret-access-key", WithDecryption=True)["Parameter"]["Value"]
 
+AWS_SIGNATURE_VERSION = "s3v4"
+
 AWS_STORAGE_BUCKET_NAME = "django-01-tyn-s3"
 AWS_S3_REGION_NAME = "us-west-1"
+AWS_S3_ENDPOINT_URL = f"https://s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+
+
 AWS_DEFAULT_ACL = None
 AWS_S3_FILE_OVERWRITE = False
 
