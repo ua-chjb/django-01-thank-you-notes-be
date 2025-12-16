@@ -21,11 +21,6 @@ from .serializers import (
 from .models import Post, CustomUser, Follow, PostLike, Comment, CommentLike, Notification
 from .utils import send_sms_verification, create_notification
 
-import logging
-logging.getLogger('botocore').setLevel(logging.DEBUG)
-logging.getLogger('boto3').setLevel(logging.DEBUG)
-logging.getLogger('s3transfer').setLevel(logging.DEBUG)
-
 # verification data
 @api_view(["POST"])
 def register_user(request):
@@ -153,27 +148,8 @@ def update_post(request, pk):
         context={"request": request}
     )
     if ser.is_valid():
-
-        # 🚨 START CRITICAL DEBUGGING BLOCK 🚨
-        import sys
-        import traceback
-        from botocore.exceptions import ClientError
-        
-        try:
-            ser.save() # <-- THE S3 UPLOAD HAPPENS HERE
-            return Response(ser.data) # Only return 200 OK on successful save
-            
-        except:
-            print(f"!!! GENERIC PYTHON ERROR DURING UPLOAD: {e}", file=sys.stderr)
-            traceback.print_exc(file=sys.stderr)
-            return Response(
-                {"error": "Internal Server Error during save."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-        # 🚨 END CRITICAL DEBUGGING BLOCK 🚨
-
-        # ser.save()
-        # return Response(ser.data)
+        ser.save()
+        return Response(ser.data)
     
     
     return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
