@@ -212,6 +212,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # media files
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
 DATR_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024
 
